@@ -10,6 +10,29 @@ let lastHole = 0;
 let points = 0;
 let difficulty = "easy";
 
+const audioHit = new Audio("https://github.com/gabrielsanchez/erddiagram/blob/main/hit.mp3?raw=true");
+const song = new Audio("https://github.com/gabrielsanchez/erddiagram/blob/main/molesong.mp3?raw=true");
+
+function playAudio(audioObject) {
+  audioObject.play();
+}
+
+function loopAudio(audioObject) {
+  audioObject.loop = true;
+  playAudio(audioObject);
+}
+
+function stopAudio(audioObject) {
+  audioObject.pause();
+  audioObject.currentTime = 0; // Reset the audio to the beginning
+}
+
+function play() {
+  if (song.paused) {
+    playAudio(song);
+  }
+}
+
 /**
  * Generates a random integer within a range.
  */
@@ -210,17 +233,22 @@ function updateTimer() {
 *
 */
 function startTimer() {
-  console.log("startTimer function called");
-  timer = setInterval(function () {
-    console.log("Interval: Updating timer");
-    updateTimer();
-    if (time <= 0) {
-      stopGame();
+    console.log("startTimer function called");
+    
+    function update() {
+      if (time > 0) {
+        console.log("Updating timer:", time);
+        updateTimer();
+        setTimeout(update, 1000);
+      } else {
+        stopGame();
+      }
     }
-  }, 1000);
-  return timer;
-}
-
+  
+    update();
+  
+    return timer;
+  }
 /**
 *
 * This is the event handler that gets called when a player
@@ -237,6 +265,7 @@ function whack(event) {
  if (event.target.classList.contains('mole')) {
   // If a mole is clicked, call updateScore to increment points
   updateScore();
+   playAudio(audioHit);
 }
 
 return points;
@@ -280,6 +309,7 @@ function stopGame() {
   clearTimeout(timeoutID); 
   clearInterval(timer);
   clearScore();
+  stopAudio(song); 
   return "game stopped";
 }
 
@@ -297,6 +327,7 @@ function startGame() {
   timerDisplay.textContent = time; // Update the timer display
   showUp();
   startTimer();
+  play();
   return "game started";
 }
 
