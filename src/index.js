@@ -14,7 +14,7 @@ let difficulty = "easy";
  * Generates a random integer within a range.
  */
 function randomInteger(min, max) {
-  return Math.round(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 
@@ -63,12 +63,12 @@ function chooseHole(holes) {
   let index = randomInteger(0, 8);
   const hole = holes[index];
 
-if(hole === lastHole) {
-  return chooseHole(holes);
-} else {
-lastHole = hole;
-return hole;
-}
+  if (hole === lastHole) {
+    return chooseHole(holes);
+  } else {
+    lastHole = hole;
+    return hole;
+  }
 }
 
 /**
@@ -92,14 +92,11 @@ return hole;
 *
 */
 function gameOver() {
-  console.log("gameOver function called");
   if (time > 0) {
     const timeoutId = showUp();
     return timeoutId;
   } else {
     const gameStopped = stopGame();
-    clearScore();
-    updateTimer();
     return gameStopped;
   }
 }
@@ -129,21 +126,19 @@ function showUp() {
 * the timeoutID
 *
 */
-let timeoutID;
-function showAndHide(hole, delay){
-  const time = randomInteger (200, 1000);
-  console.log("showAndHide function called");
-  // call the toggleVisibility function so that it adds the 'show' class.
+let timeoutID; 
+
+function showAndHide(hole, delay) {
+  // TODO: call the toggleVisibility function so that it adds the 'show' class.
   toggleVisibility(hole);
-  
-const timeoutID = setTimeout(() => {
-  toggleVisibility(hole);
-  gameOver();
-  console.log("Calling updateScore and updateTimer from showAndHide");
-  updateScore();
-  updateTimer();
-}, delay);
-  
+
+  const timeoutID = setTimeout(() => {
+    // TODO: call the toggleVisibility function so that it removes the 'show' class when the timer times out.
+    toggleVisibility(hole);
+    updateTimer();
+    gameOver();
+  }, delay);
+
   return timeoutID;
 }
 
@@ -197,9 +192,14 @@ function clearScore() {
 function updateTimer() {
   console.log("updateTimer function called");
   if (time > 0) {
-    time -= 1000;
-    timerDisplay.textContent = time / 1000;
+    time -= 1; // Update the timer by 1 second
+    timerDisplay.textContent = time; // Update the display
   }
+
+  if (time === 0) {
+    stopGame();
+  }
+
   return time;
 }
 
@@ -212,15 +212,16 @@ function updateTimer() {
 function startTimer() {
   console.log("startTimer function called");
   timer = setInterval(function () {
-    console.log("Interval: Updating timer");
-    updateTimer();
-    if (time === 0) {
+    if (time > 0) {
+      console.log("Interval: Updating timer");
+      updateTimer();
+    } else {
       stopGame();
     }
   }, 1000);
+
   return timer;
 }
-
 /**
 *
 * This is the event handler that gets called when a player
@@ -233,36 +234,13 @@ function whack(event) {
   console.log("Whack function called");
   console.log("Event:", event);
   console.log("Event target:", event.target);
-
-  // Ensure that the event was triggered by a user click on a mole
-  if (event.target.classList.contains('mole')) {
-    updateScore();
-  }
-
-  return points;
+ // Ensure that the event was triggered by a user click on a mole
+ if (event.target.classList.contains('mole')) {
+  // If a mole is clicked, call updateScore to increment points
+  updateScore();
 }
 
-/**only updates score when mole is clicked */
-function whack(e) {
-  if(!e.isTrusted) return;
-}
-moles.forEach(mole=> mole.addEventListener('click, whack'));
-
-function playBackgroundMusic() {
-  backgroundMusic.play();
-
-  // Function to pause the background music
-function pauseBackgroundMusic() {
-  backgroundMusic.pause();
-}
-
-// Function to toggle the background music on/off
-function toggleBackgroundMusic() {
-  if (backgroundMusic.paused) {
-    playBackgroundMusic();
-  } else {
-    pauseBackgroundMusic();
-  }
+return points;
 }
 
 /**
@@ -271,6 +249,7 @@ function toggleBackgroundMusic() {
 * for an example on how to set event listeners using a for loop.
 */
 function setEventListeners() {
+  // Add 'click' event listeners to each mole, calling the whack function
   moles.forEach(mole => mole.addEventListener('click', whack));
   return moles;
 }
@@ -289,6 +268,8 @@ function setDuration(duration) {
   return time;
 }
 
+setDuration(10);
+
 /**
 *
 * This function is called when the game is stopped. It clears the
@@ -300,11 +281,6 @@ function stopGame() {
   clearTimeout(timeoutID); 
   clearInterval(timer);
   clearScore();
-
-  // Pause the background music
-  const backgroundMusic = document.getElementById("backgroundMusic");
-  backgroundMusic.pause();
-
   return "game stopped";
 }
 
@@ -316,11 +292,12 @@ function stopGame() {
 */
 function startGame() {
   console.log("Start button clicked");
-  updateScore.textContent = 0;
+  points = 0; // Reset points to 0
+  score.textContent = points; // Update the scoreboard display
   setDuration(10);
+  timerDisplay.textContent = time; // Update the timer display
   showUp();
   startTimer();
-  playBackgroundMusic(); // Start playing background music
   return "game started";
 }
 
