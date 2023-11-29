@@ -212,16 +212,15 @@ function updateTimer() {
 function startTimer() {
   console.log("startTimer function called");
   timer = setInterval(function () {
-    if (time > 0) {
-      console.log("Interval: Updating timer");
-      updateTimer();
-    } else {
+    console.log("Interval: Updating timer");
+    updateTimer();
+    if (time <= 0) {
       stopGame();
     }
   }, 1000);
-
   return timer;
 }
+
 /**
 *
 * This is the event handler that gets called when a player
