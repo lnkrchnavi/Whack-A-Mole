@@ -268,19 +268,23 @@ function whack(event) {
     console.log("Event target:", event.target);
 
     // Ensure that the event was triggered by a user click on a mole
-    if (event.target.classList.contains('mole')) {
-        // If a mole is clicked and it does not have a 'whacked' class
-        if (!event.target.classList.contains('whacked')) {
-            // Add the 'whacked' class to the mole
-            event.target.classList.add('whacked');
+    if (event.target.classList.contains('mole') && !event.target.classList.contains('whacked')) {
+        // Add the 'whacked' class to the mole to prevent multiple clicks
+        event.target.classList.add('whacked');
 
-            // If a mole is clicked, call updateScore to increment points
-            updateScore();
-            playAudio(audioHit);
-        }
+        // If a mole is clicked, call updateScore to increment points
+        updateScore();
+        playAudio(audioHit);
     }
 
     return points;
+}
+
+function resetGame() {
+    // Remove the 'whacked' class from all moles
+    moles.forEach(mole => mole.classList.remove('whacked'));
+
+    // Other reset logic if needed
 }
 /**
 *
