@@ -237,7 +237,6 @@ function updateTimer() {
 * the updateTimer function get called. This function is already implemented
 *
 */
-let time = 10;
 function startTimer() {
     console.log("startTimer function called");
       setInterval(updateTimer, 1000);
