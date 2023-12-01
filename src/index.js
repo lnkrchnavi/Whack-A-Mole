@@ -287,7 +287,7 @@ function whack(event) {
 // Call setEventListeners after defining moles
 setEventListeners();
 
-unction resetGame() {
+function resetGame() {
     // Reset the data-whacked attribute for all moles
     moles.forEach(mole => mole.setAttribute('data-whacked', 'false'));
 }
