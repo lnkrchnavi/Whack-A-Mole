@@ -268,9 +268,10 @@ function whack(event) {
     console.log("Event target:", event.target);
 
     // Ensure that the event was triggered by a user click on a mole
-    if (event.target.classList.contains('mole') && !event.target.classList.contains('whacked')) {
+    const mole = event.target;
+    if (mole.classList.contains('mole') && !mole.classList.contains('whacked')) {
         // Add the 'whacked' class to the mole to prevent multiple clicks
-        event.target.classList.add('whacked');
+        mole.classList.add('whacked');
 
         // If a mole is clicked, call updateScore to increment points
         updateScore();
@@ -286,6 +287,7 @@ function resetGame() {
 
     // Other reset logic if needed
 }
+
 /**
 *
 * Adds the 'click' event listeners to the moles. See the instructions
