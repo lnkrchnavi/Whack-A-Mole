@@ -323,15 +323,21 @@ function stopGame() {
 *
 */
 function startGame() {
-  console.log("Start button clicked");
-  points = 0; // Reset points to 0
-  score.textContent = points; // Update the scoreboard display
-  setDuration(10);
-  timerDisplay.textContent = time; // Update the timer display
-  showUp();
-  startTimer();
-  play();
-  return "game started";
+    console.log("Start button clicked");
+    points = 0; // Reset points to 0
+    score.textContent = points; // Update the scoreboard display
+    setDuration(10);
+    timerDisplay.textContent = time; // Update the timer display
+    setEventListeners(); // Ensure event listeners are set
+    resetGame(); // Reset the game state
+    showUp(); // Show the first mole
+    startTimer(); // Start the timer
+    play(); // Play audio
+    
+   setTimeout(() => {
+        showUp(); // Show the first mole
+    }, 100);
+    return "game started";
 }
 
 startButton.addEventListener("click", startGame);
