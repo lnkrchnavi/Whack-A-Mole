@@ -263,28 +263,40 @@ function startTimer() {
 *
 */
 function whack(event) {
-  console.log("Whack function called");
-  console.log("Event:", event);
-  console.log("Event target:", event.target);
- // Ensure that the event was triggered by a user click on a mole
- if (event.target.classList.contains('mole')) {
-  // If a mole is clicked, call updateScore to increment points
-  updateScore();
-   playAudio(audioHit);
-}
+    console.log("Whack function called");
+    console.log("Event:", event);
+    console.log("Event target:", event.target);
 
-return points;
-}
+    // Ensure that the event was triggered by a user click on a mole
+    if (event.target.classList.contains('mole')) {
+        // If a mole is clicked and it does not have a 'whacked' class
+        if (!event.target.classList.contains('whacked')) {
+            // Add the 'whacked' class to the mole
+            event.target.classList.add('whacked');
 
+            // If a mole is clicked, call updateScore to increment points
+            updateScore();
+            playAudio(audioHit);
+        }
+    }
+
+    return points;
+}
 /**
 *
 * Adds the 'click' event listeners to the moles. See the instructions
 * for an example on how to set event listeners using a for loop.
 */
 function setEventListeners() {
-  // Add 'click' event listeners to each mole, calling the whack function
-  moles.forEach(mole => mole.addEventListener('click', whack));
-  return moles;
+    // Add 'click' event listeners to each mole, calling the whack function
+    moles.forEach(mole => {
+        mole.addEventListener('click', whack);
+
+        // Remove the 'whacked' class when resetting the game or showing a new mole
+        mole.classList.remove('whacked');
+    });
+
+    return moles;
 }
 
 // Call setEventListeners after defining moles
