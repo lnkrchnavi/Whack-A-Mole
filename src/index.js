@@ -247,6 +247,7 @@ function updateTimer() {
   if (time > 0) {
     console.log("Updating timer:", time);
     time--; // Decrement the time by 1 second
+    timerDisplay.textContent = time; // Update the display
   } else {
     stopGame();
   }
