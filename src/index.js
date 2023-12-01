@@ -151,14 +151,9 @@ function showUp() {
 */
 let timeoutID; 
 
-function showAndHide(hole, delay){
+function showAndHide(hole, delay) {
+  // TODO: call the toggleVisibility function so that it adds the 'show' class.
   toggleVisibility(hole);
-  const timeoutID = setTimeout(() => {  
-    toggleVisibility(hole);
-    gameOver();
-  }, 1000); 
-  return timeoutID;
-}
 
   const timeoutID = setTimeout(() => {
     // TODO: call the toggleVisibility function so that it removes the 'show' class when the timer times out.
@@ -239,18 +234,19 @@ function updateTimer() {
 */
 function startTimer() {
     console.log("startTimer function called");
-      setInterval(updateTimer, 1000);
-    return timer;
-}
-    function updateTimer() {
-    if (time > 0) {
+    
+    function update() {
+      if (time > 0) {
         console.log("Updating timer:", time);
-        time--; // Decrement the time by 1 second
-    } else {
+        updateTimer();
+        setTimeout(update, 1000);
+      } else {
         stopGame();
+      }
     }
-}
+  
     update();
+  
     return timer;
   }
 /**
@@ -299,6 +295,7 @@ function setDuration(duration) {
   time = duration;
   return time;
 }
+
 setDuration(10);
 
 /**
@@ -323,21 +320,15 @@ function stopGame() {
 *
 */
 function startGame() {
-    console.log("Start button clicked");
-    points = 0; // Reset points to 0
-    score.textContent = points; // Update the scoreboard display
-    setDuration(10);
-    timerDisplay.textContent = time; // Update the timer display
-    setEventListeners(); // Ensure event listeners are set
-    resetGame(); // Reset the game state
-    showUp(); // Show the first mole
-    startTimer(); // Start the timer
-    play(); // Play audio
-    
-   setTimeout(() => {
-        showUp(); // Show the first mole
-    }, 100);
-    return "game started";
+  console.log("Start button clicked");
+  points = 0; // Reset points to 0
+  score.textContent = points; // Update the scoreboard display
+  setDuration(10);
+  timerDisplay.textContent = time; // Update the timer display
+  showUp();
+  startTimer();
+  play();
+  return "game started";
 }
 
 startButton.addEventListener("click", startGame);
