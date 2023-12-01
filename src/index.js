@@ -151,9 +151,14 @@ function showUp() {
 */
 let timeoutID; 
 
-function showAndHide(hole, delay) {
-  // TODO: call the toggleVisibility function so that it adds the 'show' class.
+function showAndHide(hole, delay){
   toggleVisibility(hole);
+  const timeoutID = setTimeout(() => {  
+    toggleVisibility(hole);
+    gameOver();
+  }, 1000); 
+  return timeoutID;
+}
 
   const timeoutID = setTimeout(() => {
     // TODO: call the toggleVisibility function so that it removes the 'show' class when the timer times out.
@@ -232,21 +237,21 @@ function updateTimer() {
 * the updateTimer function get called. This function is already implemented
 *
 */
+let time = 10;
 function startTimer() {
     console.log("startTimer function called");
-    
-    function update() {
-      if (time > 0) {
+      setInterval(updateTimer, 1000);
+    return timer;
+}
+    function updateTimer() {
+    if (time > 0) {
         console.log("Updating timer:", time);
-        updateTimer();
-        setTimeout(update, 1000);
-      } else {
+        time--; // Decrement the time by 1 second
+    } else {
         stopGame();
-      }
     }
-  
-    update();
-  
+}
+    updateTimer();
     return timer;
   }
 /**
@@ -295,7 +300,6 @@ function setDuration(duration) {
   time = duration;
   return time;
 }
-
 setDuration(10);
 
 /**
