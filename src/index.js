@@ -269,9 +269,9 @@ function whack(event) {
 
     // Ensure that the event was triggered by a user click on a mole
     const mole = event.target;
-    if (mole.classList.contains('mole') && mole.getAttribute('data-whacked') !== 'true') {
-        // Set the data attribute to mark the mole as whacked
-        mole.setAttribute('data-whacked', 'true');
+    if (mole.classList.contains('mole') && !mole.classList.contains('whacked')) {
+        // Add the 'whacked' class to the mole to prevent multiple clicks
+        mole.classList.add('whacked');
 
         // If a mole is clicked, call updateScore to increment points
         updateScore();
