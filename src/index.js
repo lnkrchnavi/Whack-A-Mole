@@ -238,25 +238,20 @@ function updateTimer() {
 *
 */
 function startTimer() {
-  // TODO: Write your code here
-  setInterval(updateTimer, 1000);
-    return timer;
+  // Use setInterval to call updateTimer every 1000ms (1 second)
+  timer = setInterval(updateTimer, 1000);
+  return timer;
 }
-    
-    function updateTimer() {
-      if (time > 0) {
-        console.log("Updating timer:", time);
-        updateTimer();
-        setTimeout(updateTimer, 1000);
-      } else {
-        stopGame();
-      }
-    }
-  
-    updateTimer();
-  
-    return timer;
+
+function updateTimer() {
+  if (time > 0) {
+    console.log("Updating timer:", time);
+    time--; // Decrement the time by 1 second
+  } else {
+    stopGame();
   }
+}
+
 /**
 *
 * This is the event handler that gets called when a player
