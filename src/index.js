@@ -150,10 +150,15 @@ function showUp() {
 *
 */
 let timeoutID; 
-
-function showAndHide(hole, delay) {
-  // TODO: call the toggleVisibility function so that it adds the 'show' class.
+function showAndHide(hole, delay){
+ 
   toggleVisibility(hole);
+  const timeoutID = setTimeout(() => {  
+    toggleVisibility(hole);
+    gameOver();
+  }, 1000); 
+  return timeoutID;
+}
 
   const timeoutID = setTimeout(() => {
     // TODO: call the toggleVisibility function so that it removes the 'show' class when the timer times out.
@@ -233,19 +238,22 @@ function updateTimer() {
 *
 */
 function startTimer() {
-    console.log("startTimer function called");
+  // TODO: Write your code here
+  setInterval(updateTimer, 1000);
+    return timer;
+}
     
-    function update() {
+    function updateTimer() {
       if (time > 0) {
         console.log("Updating timer:", time);
         updateTimer();
-        setTimeout(update, 1000);
+        setTimeout(updateTimer, 1000);
       } else {
         stopGame();
       }
     }
   
-    update();
+    updateTimer();
   
     return timer;
   }
@@ -258,17 +266,30 @@ function startTimer() {
 *
 */
 function whack(event) {
-  console.log("Whack function called");
-  console.log("Event:", event);
-  console.log("Event target:", event.target);
- // Ensure that the event was triggered by a user click on a mole
- if (event.target.classList.contains('mole')) {
-  // If a mole is clicked, call updateScore to increment points
-  updateScore();
-   playAudio(audioHit);
+    console.log("Whack function called");
+    console.log("Event:", event);
+    console.log("Event target:", event.target);
+
+    // Ensure that the event was triggered by a user click on a mole
+    const mole = event.target;
+    if (mole.classList.contains('mole') && mole.getAttribute('data-whacked') !== 'true') {
+        // Set the data attribute to mark the mole as whacked
+        mole.setAttribute('data-whacked', 'true');
+
+        // If a mole is clicked, call updateScore to increment points
+        updateScore();
+        playAudio(audioHit);
+    }
+
+    return points;
 }
 
-return points;
+// Call setEventListeners after defining moles
+setEventListeners();
+
+unction resetGame() {
+    // Reset the data-whacked attribute for all moles
+    moles.forEach(mole => mole.setAttribute('data-whacked', 'false'));
 }
 
 /**
