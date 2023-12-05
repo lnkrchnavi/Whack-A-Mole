@@ -138,7 +138,7 @@ function showUp() {
   const delay = setDelay(difficulty);
   const hole = chooseHole(holes);
   const timeoutID = showAndHide(hole, delay);
-  return timeoutID; // Return the timeoutID explicitly
+  return timeoutID;
 }
 
 /**
@@ -149,8 +149,6 @@ function showUp() {
 * the timeoutID
 *
 */
-let timeoutID;
-
 function showAndHide(hole, delay){
   toggleVisibility(hole);
   timeoutID = setTimeout(() => {  // Remove 'const' here
