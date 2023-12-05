@@ -150,8 +150,8 @@ function showUp() {
 *
 */
 let timeoutID; 
+
 function showAndHide(hole, delay){
- 
   toggleVisibility(hole);
   const timeoutID = setTimeout(() => {  
     toggleVisibility(hole);
@@ -238,21 +238,24 @@ function updateTimer() {
 *
 */
 function startTimer() {
-  // Use setInterval to call updateTimer every 1000ms (1 second)
-  timer = setInterval(updateTimer, 1000);
-  return timer;
+  setInterval(updateTimer, 1000);
+    return timer;
 }
-
-function updateTimer() {
-  if (time > 0) {
-    console.log("Updating timer:", time);
-    time--; // Decrement the time by 1 second
-    timerDisplay.textContent = time; // Update the display
-  } else {
-    stopGame();
+    
+    function update() {
+      if (time > 0) {
+        console.log("Updating timer:", time);
+        updateTimer();
+        setTimeout(update, 1000);
+      } else {
+        stopGame();
+      }
+    }
+  
+    update();
+  
+    return timer;
   }
-}
-
 /**
 *
 * This is the event handler that gets called when a player
@@ -262,30 +265,17 @@ function updateTimer() {
 *
 */
 function whack(event) {
-    console.log("Whack function called");
-    console.log("Event:", event);
-    console.log("Event target:", event.target);
-
-    // Ensure that the event was triggered by a user click on a mole
-    const mole = event.target;
-    if (mole.classList.contains('mole') && mole.getAttribute('data-whacked') !== 'true') {
-        // Set the data attribute to mark the mole as whacked
-        mole.setAttribute('data-whacked', 'true');
-
-        // If a mole is clicked, call updateScore to increment points
-        updateScore();
-        playAudio(audioHit);
-    }
-
-    return points;
+  console.log("Whack function called");
+  console.log("Event:", event);
+  console.log("Event target:", event.target);
+ // Ensure that the event was triggered by a user click on a mole
+ if (event.target.classList.contains('mole')) {
+  // If a mole is clicked, call updateScore to increment points
+  updateScore();
+   playAudio(audioHit);
 }
 
-// Call setEventListeners after defining moles
-setEventListeners();
-
-function resetGame() {
-    // Reset the data-whacked attribute for all moles
-    moles.forEach(mole => mole.setAttribute('data-whacked', 'false'));
+return points;
 }
 
 /**
