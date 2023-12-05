@@ -150,13 +150,14 @@ function showUp() {
 *
 */
 let timeoutID; 
-
-function showAndHide(hole, delay){
+function showAndHide(hole, delay) {
   toggleVisibility(hole);
-  const timeoutID = setTimeout(() => {  
+
+  const timeoutID = setTimeout(() => {
     toggleVisibility(hole);
     gameOver();
-  }, 1000); 
+  }, delay);
+
   return timeoutID;
 }
 
