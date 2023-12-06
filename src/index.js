@@ -221,22 +221,10 @@ function updateTimer() {
 *
 */
 function startTimer() {
-    console.log("startTimer function called");
-    
-    function update() {
-      if (time > 0) {
-        console.log("Updating timer:", time);
-        updateTimer();
-        setTimeout(update, 1000);
-      } else {
-        stopGame();
-      }
-    }
-  
-    update();
-  
+
+  setInterval(updateTimer, 1000);
     return timer;
-  }
+}
     
 /**
 *
