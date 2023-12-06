@@ -274,8 +274,6 @@ function setDuration(duration) {
   return time;
 }
 
-setDuration(10);
-
 /**
 *
 * This function is called when the game is stopped. It clears the
