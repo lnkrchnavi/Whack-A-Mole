@@ -294,10 +294,12 @@ setDuration(10);
 * timer using clearInterval. Returns "game stopped".
 *
 */
+let gameInterval;
+
 function stopGame() {
   console.log("stopGame function called");
   clearTimeout(timeoutID); 
-  clearInterval(timer);
+  clearInterval(gameInterval);
   clearScore();
   stopAudio(song); 
   return "game stopped";
@@ -312,12 +314,14 @@ function stopGame() {
 function startGame() {
   console.log("Start button clicked");
   points = 0; // Reset points to 0
-  score.textContent = points; // Update the scoreboard display
+  score.textContent = points; // Update the scoreboard
   setDuration(10);
-  timerDisplay.textContent = time; // Update the timer display
+  timerDisplay.textContent = time; // Update the timer
   showUp();
-  startTimer();
+
+  gameInterval = startTimer();
   play();
+
   return "game started";
 }
 
