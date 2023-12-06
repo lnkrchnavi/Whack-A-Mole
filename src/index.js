@@ -231,20 +231,6 @@ function startTimer() {
     return timer;
 }
     
-    function update() {
-      if (time > 0) {
-        console.log("Updating timer:", time);
-        updateTimer();
-        setTimeout(update, 1000);
-      } else {
-        stopGame();
-      }
-    }
-  
-    update();
-  
-    return timer;
-  }
 /**
 *
 * This is the event handler that gets called when a player
