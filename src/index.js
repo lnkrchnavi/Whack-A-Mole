@@ -119,8 +119,8 @@ function gameOver() {
     const timeoutId = showUp();
     return timeoutId;
   } else {
-    const gameStopped = stopGame();
-    return gameStopped;
+    stopGame();
+    return "game stopped";
   }
 }
   
