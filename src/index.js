@@ -252,9 +252,6 @@ function setEventListeners() {
   return moles;
 }
 
-// Call setEventListeners after defining moles
-setEventListeners();
-
 /**
 *
 * This function sets the duration of the game. The time limit, in seconds,
@@ -272,12 +269,11 @@ function setDuration(duration) {
 * timer using clearInterval. Returns "game stopped".
 *
 */
-let gameInterval;
 
 function stopGame() {
   console.log("stopGame function called");
   clearTimeout(timeoutID); 
-  clearInterval(gameInterval);
+  clearInterval(timer);
   clearScore();
   stopAudio(song); 
   return "game stopped";
