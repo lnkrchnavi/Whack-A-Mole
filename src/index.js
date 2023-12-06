@@ -236,17 +236,9 @@ function startTimer() {
 *
 */
 function whack(event) {
-  console.log("Whack function called");
-  console.log("Event:", event);
-  console.log("Event target:", event.target);
- // Ensure that the event was triggered by a user click on a mole
- if (event.target.classList.contains('mole')) {
-  // If a mole is clicked, call updateScore to increment points
   updateScore();
-   playAudio(audioHit);
-}
-
-return points;
+playAudio(audioHit);
+   return points;
 }
 
 /**
@@ -297,17 +289,13 @@ function stopGame() {
 * is clicked.
 *
 */
-function startGame() {
-  console.log("Start button clicked");
-  points = 0; // Reset points to 0
-  score.textContent = points; // Update the scoreboard
-  setDuration(10);
-  timerDisplay.textContent = time; // Update the timer
+function startGame(){
+  setDuration(15);
   showUp();
-
-  gameInterval = startTimer();
-  play();
-
+  points = 0;
+  clearScore();
+  startTimer();
+  setEventListeners();
   return "game started";
 }
 
