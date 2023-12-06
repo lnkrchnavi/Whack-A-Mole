@@ -135,10 +135,9 @@ function gameOver() {
 */
 function showUp() {
   console.log("showUp function called");
-  const delay = setDelay(difficulty);
+  let delay = setDelay(difficulty);
   const hole = chooseHole(holes);
-  const timeoutID = showAndHide(hole, delay);
-  return timeoutID;
+  return showAndHide(hole, delay);
 }
 
 /**
@@ -151,19 +150,11 @@ function showUp() {
 */
 function showAndHide(hole, delay){
   toggleVisibility(hole);
-  timeoutID = setTimeout(() => {  // Remove 'const' here
+
+  const timeoutID = setTimeout(() => {
     toggleVisibility(hole);
     gameOver();
   }, 1000); 
-  return timeoutID;
-}
-
-  const timeoutID = setTimeout(() => {
-    // TODO: call the toggleVisibility function so that it removes the 'show' class when the timer times out.
-    toggleVisibility(hole);
-    updateTimer();
-    gameOver();
-  }, delay);
 
   return timeoutID;
 }
