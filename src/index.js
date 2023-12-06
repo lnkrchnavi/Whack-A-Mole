@@ -119,6 +119,7 @@ function gameOver() {
     return timeoutId;
   } else {
     stopGame();
+    stopAudio(song);
     return "game stopped";
   }
 }
