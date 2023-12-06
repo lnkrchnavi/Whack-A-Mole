@@ -212,11 +212,6 @@ function updateTimer() {
     time -= 1; // Update the timer by 1 second
     timerDisplay.textContent = time; // Update the display
   }
-
-  if (time === 0) {
-    stopGame();
-  }
-
   return time;
 }
 
@@ -227,9 +222,22 @@ function updateTimer() {
 *
 */
 function startTimer() {
-  setInterval(updateTimer, 1000);
+    console.log("startTimer function called");
+    
+    function update() {
+      if (time > 0) {
+        console.log("Updating timer:", time);
+        updateTimer();
+        setTimeout(update, 1000);
+      } else {
+        stopGame();
+      }
+    }
+  
+    update();
+  
     return timer;
-}
+  }
     
 /**
 *
