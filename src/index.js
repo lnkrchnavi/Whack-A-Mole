@@ -160,6 +160,10 @@ function showAndHide(hole, delay){
     moleWhacked = false;
   }, 1000); 
 
+  setTimeout(() => {
+    moleWhacked = false; // Reset the flag after a delay
+  }, delay);
+  
   return timeoutID;
 }
 
