@@ -157,6 +157,7 @@ function showAndHide(hole, delay){
   const timeoutID = setTimeout(() => {
     toggleVisibility(hole);
     gameOver();
+    moleWhacked = false;
   }, 1000); 
 
   return timeoutID;
