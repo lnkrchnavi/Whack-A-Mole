@@ -135,6 +135,7 @@ function gameOver() {
 */
 function showUp() {
   console.log("showUp function called");
+  moleWhacked = false;
   let delay = setDelay(difficulty);
   const hole = chooseHole(holes);
   return showAndHide(hole, delay);
@@ -148,6 +149,8 @@ function showUp() {
 * the timeoutID
 *
 */
+let timeoutId;
+
 function showAndHide(hole, delay){
   toggleVisibility(hole);
 
@@ -223,8 +226,7 @@ function updateTimer() {
 */
 function startTimer() {
 
-  setInterval(updateTimer, 1000);
-    return timer;
+ return setInterval(updateTimer, 1000);
 }
     
 /**
@@ -235,18 +237,16 @@ function startTimer() {
 * the moles.
 *
 */
-function whack(event) {
-  console.log("Whack function called");
-  console.log("Event:", event);
-  console.log("Event target:", event.target);
- // Ensure that the event was triggered by a user click on a mole
- if (event.target.classList.contains('mole')) {
-  // If a mole is clicked, call updateScore to increment points
-  updateScore();
-   playAudio(audioHit);
-}
+let moleWhacked = false; // Add a global variable to track whether a mole has been whacked
 
-return points;
+function whack(event) {
+  // Check if the mole has already been whacked in the current round
+  if (!moleWhacked) {
+    updateScore();
+    playAudio(audioHit);
+    moleWhacked = true; // Set the flag to true to indicate that the mole has been whacked
+  }
+  return points;
 }
 
 /**
@@ -259,9 +259,6 @@ function setEventListeners() {
   moles.forEach(mole => mole.addEventListener('click', whack));
   return moles;
 }
-
-// Call setEventListeners after defining moles
-setEventListeners();
 
 /**
 *
@@ -288,6 +285,7 @@ function stopGame() {
   clearInterval(gameInterval);
   clearScore();
   stopAudio(song); 
+  moleWhacked = false; // Reset the flag
   return "game stopped";
 }
 
@@ -332,3 +330,4 @@ window.time = time;
 window.setDuration = setDuration;
 window.toggleVisibility = toggleVisibility;
 window.setEventListeners = setEventListeners;
+
