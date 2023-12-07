@@ -269,11 +269,12 @@ function setDuration(duration) {
 * timer using clearInterval. Returns "game stopped".
 *
 */
+let gameInterval;
 
 function stopGame() {
   console.log("stopGame function called");
   clearTimeout(timeoutID); 
-  clearInterval(timer);
+  clearInterval(gameInterval);
   clearScore();
   stopAudio(song); 
   return "game stopped";
@@ -285,13 +286,17 @@ function stopGame() {
 * is clicked.
 *
 */
-function startGame(){
-  setDuration(15);
+function startGame() {
+  console.log("Start button clicked");
+  points = 0; // Reset points to 0
+  score.textContent = points; // Update the scoreboard
+  setDuration(10);
+  timerDisplay.textContent = time; // Update the timer
   showUp();
-  points = 0;
-  clearScore();
-  startTimer();
-  setEventListeners();
+
+  gameInterval = startTimer();
+  play();
+
   return "game started";
 }
 
