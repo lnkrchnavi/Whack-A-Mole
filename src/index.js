@@ -148,8 +148,6 @@ function showUp() {
 * the timeoutID
 *
 */
-let timeoutId;
-
 function showAndHide(hole, delay){
   toggleVisibility(hole);
 
@@ -225,7 +223,8 @@ function updateTimer() {
 */
 function startTimer() {
 
- return setInterval(updateTimer, 1000);
+  setInterval(updateTimer, 1000);
+    return timer;
 }
     
 /**
@@ -237,9 +236,17 @@ function startTimer() {
 *
 */
 function whack(event) {
+  console.log("Whack function called");
+  console.log("Event:", event);
+  console.log("Event target:", event.target);
+ // Ensure that the event was triggered by a user click on a mole
+ if (event.target.classList.contains('mole')) {
+  // If a mole is clicked, call updateScore to increment points
   updateScore();
-playAudio(audioHit);
-   return points;
+   playAudio(audioHit);
+}
+
+return points;
 }
 
 /**
@@ -252,6 +259,9 @@ function setEventListeners() {
   moles.forEach(mole => mole.addEventListener('click', whack));
   return moles;
 }
+
+// Call setEventListeners after defining moles
+setEventListeners();
 
 /**
 *
