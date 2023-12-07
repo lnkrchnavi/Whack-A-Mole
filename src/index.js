@@ -245,13 +245,10 @@ function startTimer() {
 */
 
 function whack(event) {
-  // Check if the mole has already been whacked in the current round
-  if (!moleWhacked) {
-    updateScore();
-    playAudio(audioHit);
-    moleWhacked = true; // Set the flag to true to indicate that the mole has been whacked
-  }
-  return points;
+
+  updateScore();
+playAudio(audioHit);
+   return points;
 }
 
 /**
