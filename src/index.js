@@ -148,6 +148,8 @@ function showUp() {
 * the timeoutID
 *
 */
+let timeoutId;
+
 function showAndHide(hole, delay){
   toggleVisibility(hole);
 
@@ -223,8 +225,7 @@ function updateTimer() {
 */
 function startTimer() {
 
-  setInterval(updateTimer, 1000);
-    return timer;
+ return setInterval(updateTimer, 1000);
 }
     
 /**
