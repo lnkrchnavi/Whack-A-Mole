@@ -9,6 +9,7 @@ let timer;
 let lastHole = 0;
 let points = 0;
 let difficulty = "easy";
+let moleWhacked = false;
 
 const audioHit = new Audio("https://github.com/gabrielsanchez/erddiagram/blob/main/hit.mp3?raw=true");
 const song = new Audio("https://github.com/gabrielsanchez/erddiagram/blob/main/molesong.mp3?raw=true");
@@ -242,7 +243,6 @@ function startTimer() {
 * the moles.
 *
 */
-let moleWhacked = false; // Add a global variable to track whether a mole has been whacked
 
 function whack(event) {
   // Check if the mole has already been whacked in the current round
