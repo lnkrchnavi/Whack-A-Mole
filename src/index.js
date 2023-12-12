@@ -155,18 +155,18 @@ function showUp() {
 function showAndHide(hole, delay) {
   toggleVisibility(hole);
 
-  const timeoutID = setTimeout(() => {
+  const currentTimeoutID = setTimeout(() => {
     toggleVisibility(hole);
     moleWhacked = false;
   }, 1000);
 
    setTimeout(() => {
-    clearTimeout(previousTimeoutId); // Clear the previous timeout
+    clearTimeout(currentTimeoutId); // Clear the previous timeout
     moleWhacked = false; // Reset the flag after a delay
     gameOver();
   }, delay);
 
-  return timeoutID;
+  return currenttimeoutID;
 }
 
 /**
