@@ -134,6 +134,8 @@ function gameOver() {
 * to call `showAndHide(hole, delay)`.
 *
 */
+let timeoutId;
+
 function showUp() {
   console.log("showUp function called");
   moleWhacked = false;
@@ -150,8 +152,6 @@ function showUp() {
 * the timeoutID
 *
 */
-let timeoutId;
-
 function showAndHide(hole, delay) {
   toggleVisibility(hole);
 
