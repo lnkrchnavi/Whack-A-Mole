@@ -161,8 +161,7 @@ function showAndHide(hole, delay) {
   }, 1000);
 
   setTimeout(() => {
-    clearTimeout(timeoutID); // Clear the previous timeout
-    moleWhacked = false; // Reset the flag after a delay
+    moleWhacked = false;
     gameOver();
   }, delay);
 
@@ -251,9 +250,6 @@ function whack(event) {
     moleWhacked = true; // Set the flag to true to indicate that the mole has been whacked
     updateScore();
     playAudio(audioHit);
-    setTimeout(() => {
-      moleWhacked = false; // Reset the flag after a delay
-    }, 1000);
   }
   return points;
 }
