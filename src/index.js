@@ -166,7 +166,7 @@ function showAndHide(hole, delay) {
     showUp(); // Call showUp to continue the game
   }, delay);
 
-  return TimeoutId;
+  return timeoutId;
 }
 
 /**
