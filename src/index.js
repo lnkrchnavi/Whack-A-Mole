@@ -141,7 +141,7 @@ function showUp() {
   moleWhacked = false;
   let delay = setDelay(difficulty);
   const hole = chooseHole(holes);
-  return showAndHide(hole, delay);
+  timeoutId = showAndHide(hole, delay, timeoutId);
 }
 
 /**
@@ -152,21 +152,21 @@ function showUp() {
 * the timeoutID
 *
 */
-function showAndHide(hole, delay) {
+function showAndHide(hole, delay, previousTimeoutId) {
   toggleVisibility(hole);
 
-  const currentTimeoutID = setTimeout(() => {
+  const currentTimeoutId = setTimeout(() => {
     toggleVisibility(hole);
     moleWhacked = false;
   }, 1000);
 
-   setTimeout(() => {
-    clearTimeout(currentTimeoutId); // Clear the previous timeout
+  setTimeout(() => {
+    clearTimeout(currentTimeoutId); // Clear the current timeout
     moleWhacked = false; // Reset the flag after a delay
-    gameOver();
+    showUp(); // Call showUp to continue the game
   }, delay);
 
-  return currenttimeoutID;
+  return currentTimeoutId;
 }
 
 /**
