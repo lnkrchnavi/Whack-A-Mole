@@ -263,8 +263,10 @@ function whack(event) {
 * for an example on how to set event listeners using a for loop.
 */
 function setEventListeners() {
-  // Add 'click' event listeners to each mole, calling the whack function
-  moles.forEach(mole => mole.addEventListener('click', whack));
+  moles.forEach(mole => mole.addEventListener('click', function(event) {
+    whack(event);
+    mole.removeEventListener('click', arguments.callee); // Remove the event listener after clicking
+  }));
   return moles;
 }
 
